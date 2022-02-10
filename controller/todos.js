@@ -1,14 +1,22 @@
-const todosModel = require("../model/todos")
+const todosModel = require("../model/todos");
 const todosController = {
-  getAll: (req, res) => {
-    const todos = todosModel.getAll()
-    res.render("todos", { todos });
+  getAll: async (req, res) => {
+    try {
+      const result = await todosModel.getAll()
+      res.render("todos", { todos: result });
+    } catch (err) {
+      console.log(err);
+    }
   },
-  getTodo: (req, res) => {
+  getTodo: async (req, res) => {
     const id = req.params.id;
-    const todo = todosModel.getTodo(id)
-    res.render("todo", { todo });
-  }
-}
+    try {
+      const result = await todosModel.getTodo(id)
+      res.render("todo", { todo: result });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+};
 
-module.exports = todosController
+module.exports = todosController;
