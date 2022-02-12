@@ -23,24 +23,28 @@ app.use(
   })
 );
 app.use(flash());
-
 app.use((req, res, next) => {
   res.locals.isLogin = req.session.isLogin;
+  res.locals.username = req.session.username;
   res.locals.errorMessage = req.flash("errorMessage");
   next();
 });
 
 app.get("/", (req, res) => {
-  res.render("addTodo");
+  res.render("index");
+  // res.render("addTodo");
 });
+app.post("/todos", todosController.addTodo);
+app.get("/todos", todosController.getAll);
+app.get("/todos/:id", todosController.getTodo);
+
 app.get("/login", (req, res) => {
   res.render("login");
 });
 app.post("/login", systemController.login);
 app.get("/logout", systemController.logout);
-app.post("/todos", todosController.addTodo);
-app.get("/todos", todosController.getAll);
-app.get("/todos/:id", todosController.getTodo);
+app.get("/register", systemController.registerPage)
+app.post("/register", systemController.register)
 
 app.listen(port, () => {
   db.connect();
