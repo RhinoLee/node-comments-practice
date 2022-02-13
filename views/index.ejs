@@ -4,10 +4,30 @@
       <a href="/login">登入</a>
       <a href="/register">註冊</a>
     </div>
-  <% } else { %>
-    <div>
-      <h1><%= username %> Welcome!</h1>
-      <a href="/logout">登出</a>
-    </div>
-  <% } %>
+    <% } else { %>
+      <div>
+        <h1>
+          <%= username %> Welcome!
+        </h1>
+        <a href="/logout">登出</a>
+
+        <form method="post" action="/comments">
+          <div>
+            <label for="content">Content</label>
+            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+          </div>
+
+          <button type="submit">送出留言</button>
+        </form>
+      </div>
+
+      <% if (comments) { %>
+        <ul>
+          <% comments.forEach(function(comment) { %>
+            <li><%= comment.content %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+    <% } %>
+
 </div>

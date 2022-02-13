@@ -7,6 +7,7 @@ const port = 5001;
 const db = require("./db");
 const todosController = require("./controller/todos");
 const systemController = require("./controller/system");
+const commentsController = require("./controller/comments");
 // create application/json parser
 const jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
@@ -30,10 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.render("index");
-  // res.render("addTodo");
-});
+app.get("/", commentsController.getAllComments);
 app.post("/todos", todosController.addTodo);
 app.get("/todos", todosController.getAll);
 app.get("/todos/:id", todosController.getTodo);
@@ -45,6 +43,8 @@ app.post("/login", systemController.login);
 app.get("/logout", systemController.logout);
 app.get("/register", systemController.registerPage)
 app.post("/register", systemController.register)
+
+app.post("/comments", commentsController.addComment)
 
 app.listen(port, () => {
   db.connect();
