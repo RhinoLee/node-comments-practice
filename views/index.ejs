@@ -24,7 +24,12 @@
       <% if (comments) { %>
         <ul>
           <% comments.forEach(function(comment) { %>
-            <li><%= comment.content %></li>
+            <li>
+              <%= comment.content %>
+              <% if (username === comment.username) { %>
+                <a href="/comments/<%= comment.id %>">刪除</a>
+              <% } %>
+            </li>
           <% }) %>
         </ul>
       <% } %>

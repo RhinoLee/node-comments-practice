@@ -15,18 +15,30 @@ const commentsModel = {
   },
   getAllComments: async () => {
     const query = {
-      text: "SELECT U.nickname, C.content FROM comments as C LEFT JOIN users as U on U.username = C.username",
+      text: "SELECT U.nickname, C.content, C.id, C.username FROM comments as C LEFT JOIN users as U on U.username = C.username",
     }
 
     try {
       const result = await db.query(query)
-      console.log("result", result);
       return result.rows
     } catch(err) {
-      console.log("err", err);
       return false
     }
   },
+  delete: async({ username, id }) => {
+    const query = {
+      text: "DELETE FROM comments WHERE username=$1 AND id=$2",
+      values: [username, id]
+    }
+
+    try {
+      const result = await db.query(query)
+      return true
+    } catch(err) {
+      console.log(err);
+      return false
+    }
+  }
 }
 
 module.exports = commentsModel

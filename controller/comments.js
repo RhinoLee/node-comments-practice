@@ -21,6 +21,12 @@ const commentsController = {
       res.render("index", { comments: [] });
     }
   },
+  delete: async (req, res) => {
+    const { username } = req.session
+    const { id } = req.params
+    const result = await commentsModel.delete({ username, id });
+    return res.redirect("/")
+  }
 };
 
 module.exports = commentsController;
