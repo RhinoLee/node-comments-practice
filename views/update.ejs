@@ -1,0 +1,7 @@
+<div class="container">
+  <h1>Update</h1>
+  <form method="post" action="/comments/update/<%= comment.id %>">
+    <textarea name="content" cols="30" rows="10"><%= comment.content %></textarea>
+    <button type="submit">更新</button>
+  </form>
+</div>

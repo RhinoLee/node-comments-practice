@@ -45,7 +45,9 @@ app.get("/register", systemController.registerPage)
 app.post("/register", systemController.register)
 
 app.post("/comments", commentsController.addComment)
-app.get("/comments/:id", commentsController.delete)
+app.get("/comments/delete/:id", commentsController.delete)
+app.get("/comments/update/:id", commentsController.update)
+app.post("/comments/update/:id", commentsController.updateHandler)
 
 app.listen(port, () => {
   db.connect();
