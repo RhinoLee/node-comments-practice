@@ -10,14 +10,14 @@
   <%- include("../template/navbar") %>
 
     <div class="container pt-5">
-      <h1>註冊</h1>
+      <h1>登入</h1>
 
       <% if(errorMessage && errorMessage.length > 0) { %>
         <div class="alert alert-danger" role="alert">
           <%= errorMessage %>
         </div>
         <% } %>
-          <form method="post" action="/register">
+          <form method="post" action="/login">
             <div class="mb-3">
               <label for="username" class="form-label">username</label>
               <input type="text" class="form-control" id="username" name="username">
@@ -26,12 +26,8 @@
               <label for="password" class="form-label">password</label>
               <input type="password" class="form-control" id="password" name="password">
             </div>
-            <div class="mb-3">
-              <label for="nickname" class="form-label">nickname</label>
-              <input type="text" class="form-control" id="nickname" name="nickname">
-            </div>
           
-            <button type="submit" class="btn btn-primary">註冊</button>
+            <button type="submit" class="btn btn-primary">登入</button>
           </form>
     </div>
 </body>

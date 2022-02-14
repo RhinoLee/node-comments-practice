@@ -5,7 +5,6 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const port = 5001;
 const db = require("./db");
-const todosController = require("./controller/todos");
 const systemController = require("./controller/system");
 const commentsController = require("./controller/comments");
 // create application/json parser
@@ -32,14 +31,9 @@ app.use((req, res, next) => {
 });
 
 app.get("/", commentsController.getAllComments);
-app.post("/todos", todosController.addTodo);
-app.get("/todos", todosController.getAll);
-app.get("/todos/:id", todosController.getTodo);
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-app.post("/login", systemController.login);
+app.get("/login", systemController.loginPage);
+app.post("/login", systemController.loginHandler);
 app.get("/logout", systemController.logout);
 app.get("/register", systemController.registerPage)
 app.post("/register", systemController.register)

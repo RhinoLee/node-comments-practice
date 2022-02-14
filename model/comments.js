@@ -15,7 +15,8 @@ const commentsModel = {
   },
   getAllComments: async () => {
     const query = {
-      text: "SELECT U.nickname, C.content, C.id, C.username FROM comments as C LEFT JOIN users as U on U.username = C.username",
+      text: `SELECT U.nickname, C.content, C.id, C.username, C.updated_at 
+            FROM comments as C LEFT JOIN users as U on U.username = C.username`,
     }
 
     try {
@@ -27,7 +28,7 @@ const commentsModel = {
   },
   getComment: async ({ username, id }) => {
     const query = {
-      text: `SELECT U.nickname, C.content, C.id, C.username 
+      text: `SELECT U.nickname, C.content, C.id, C.username
             FROM comments as C LEFT JOIN users as U on U.username = C.username
             WHERE U.username = $1 AND C.id = $2`,
       values: [username, id]

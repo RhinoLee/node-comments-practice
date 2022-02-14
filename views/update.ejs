@@ -1,7 +1,38 @@
-<div class="container">
-  <h1>Update</h1>
-  <form method="post" action="/comments/update/<%= comment.id %>">
-    <textarea name="content" cols="30" rows="10"><%= comment.content %></textarea>
-    <button type="submit">更新</button>
-  </form>
-</div>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include("template/header") %>
+</head>
+
+<body>
+
+  <%- include("template/navbar") %>
+
+    <div class="container pt-5">
+      <h1>編輯</h1>
+
+      <% if(errorMessage && errorMessage.length > 0) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= errorMessage %>
+        </div>
+        <% } %>
+        <form method="post" action="/comments/update/<%= comment.id %>">
+          <div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" placeholder="請輸入留言" id="content" name="content"
+                style="height: 100px"><%= comment.content %></textarea>
+              <label for="content">Comments</label>
+            </div>
+          </div>
+        
+          <button type="submit" class="btn btn-primary">更新</button>
+        </form>
+    </div>
+</body>
+
+</html>
+
+
+
+

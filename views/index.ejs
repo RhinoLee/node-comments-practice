@@ -1,39 +1,52 @@
-<div class="container">
-  <% if (!username) { %>
-    <div>
-      <a href="/login">登入</a>
-      <a href="/register">註冊</a>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include("template/header") %>
+</head>
+
+<body>
+
+  <%- include("template/navbar") %>
+
+    <div class="container pt-5">
+      <% if (username) { %>
+        <div>
+          <form method="post" action="/comments">
+            <div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" placeholder="請輸入留言" id="content" name="content"
+                  style="height: 100px"></textarea>
+                <label for="content">Comments</label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">送出留言</button>
+          </form>
+        </div>
+
+        <% if (comments) { %>
+          <ul class="list-group mt-5">
+            <% comments.forEach(function(comment) { %>
+              <li class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1"><%= comment.nickname %></h5>
+                  <small><%= comment.updated_at %></small>
+                </div>
+                <p class="mb-1"><%= comment.content %></p>
+                <div>
+                  <% if (username===comment.username) { %>
+                    <small><a href="/comments/update/<%= comment.id %>">編輯</a></small>
+                    <small><a href="/comments/delete/<%= comment.id %>">刪除</a></small>
+                    <% } %>
+                </div>
+              </li>
+              <% }) %>
+          </ul>
+          <% } %>
+            <% } %>
+
     </div>
-    <% } else { %>
-      <div>
-        <h1>
-          <%= username %> Welcome!
-        </h1>
-        <a href="/logout">登出</a>
+</body>
 
-        <form method="post" action="/comments">
-          <div>
-            <label for="content">Content</label>
-            <textarea name="content" id="content" cols="30" rows="10"></textarea>
-          </div>
-
-          <button type="submit">送出留言</button>
-        </form>
-      </div>
-
-      <% if (comments) { %>
-        <ul>
-          <% comments.forEach(function(comment) { %>
-            <li>
-              <%= comment.content %>
-              <% if (username === comment.username) { %>
-                <a href="/comments/update/<%= comment.id %>">編輯</a>
-                <a href="/comments/delete/<%= comment.id %>">刪除</a>
-              <% } %>
-            </li>
-          <% }) %>
-        </ul>
-      <% } %>
-    <% } %>
-
-</div>
+</html>

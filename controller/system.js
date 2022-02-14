@@ -1,7 +1,10 @@
 const systemModel = require("../model/system");
 const bcrypt = require("bcrypt");
 const systemController = {
-  login: async (req, res) => {
+  loginPage: async (req, res) => {
+    return res.render("../views/system/login.ejs");
+  },
+  loginHandler: async (req, res) => {
     const { username, password } = req.body
 
     if (!username) {
