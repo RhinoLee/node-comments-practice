@@ -9,22 +9,16 @@ const {
   dbport,
 } = require("./config");
 
-if (node_env === "development") {
+if (node_env == "development") {
   pool = new Pool({
-    user: username,
-    host: host,
-    database: dbname,
-    password: password,
-    port: dbport,
-    ssl: {
-      rejectUnauthorized: false,
-    },
+    connectionString: process.env.DATABASE_URL,
   });
 
-  return pool;
+  module.exports = pool;
+  return 
 }
 
-if (node_env !== "development") {
+if (node_env != "development") {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -32,17 +26,8 @@ if (node_env !== "development") {
     },
   });
 
-  return pool;
+  module.exports = pool;
+  return 
 }
 
-// pool.connect();
-// const query = {
-//   text: 'SELECT * FROM todos'
-// }
 
-// pool.query(query, (err, res) => {
-//   // 連線成功會顯示當前時間
-//   console.log(err, res.rows);
-// });
-
-module.exports = pool;
