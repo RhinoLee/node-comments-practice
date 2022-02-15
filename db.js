@@ -1,5 +1,5 @@
 const { Pool } = require("pg");
-const pool = null;
+let pool = null;
 const {
   node_env,
   username,
