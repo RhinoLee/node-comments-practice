@@ -1,15 +1,39 @@
 const { Pool } = require("pg");
-const { username, password, host, dbname, dbport } = require("./config");
-const pool = new Pool({
-  user: username,
-  host: host,
-  database: dbname,
-  password: password,
-  port: dbport,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+const pool = null;
+const {
+  node_env,
+  username,
+  password,
+  host,
+  dbname,
+  dbport,
+} = require("./config");
+
+if (node_env === "development") {
+  pool = new Pool({
+    user: username,
+    host: host,
+    database: dbname,
+    password: password,
+    port: dbport,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  return pool;
+}
+
+if (node_env !== "development") {
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  return pool;
+}
 
 // pool.connect();
 // const query = {
