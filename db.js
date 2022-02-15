@@ -1,11 +1,14 @@
-const { Pool } = require('pg')
-const { username, password, host, dbname, dbport } = require("./config")
+const { Pool } = require("pg");
+const { username, password, host, dbname, dbport } = require("./config");
 const pool = new Pool({
   user: username,
   host: host,
   database: dbname,
   password: password,
   port: dbport,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 // pool.connect();
@@ -18,4 +21,4 @@ const pool = new Pool({
 //   console.log(err, res.rows);
 // });
 
-module.exports = pool
+module.exports = pool;
